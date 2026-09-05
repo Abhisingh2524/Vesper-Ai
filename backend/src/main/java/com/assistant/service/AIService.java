@@ -246,6 +246,9 @@ public class AIService {
     }
 
     private boolean isCameraCommand(String s) {
+        if (s.contains("camera") || s.contains("photo") || s.contains("picture") || s.contains("tasveer") || s.contains("selfie")) {
+            return true;
+        }
         return s.equals("open camera") || s.equals("camera open") || s.equals("camera kholo")
                 || s.equals("camera open karo") || s.equals("camera on karo") || s.equals("camera chalao")
                 || s.equals("take a photo") || s.equals("take a picture") || s.equals("take photo")
