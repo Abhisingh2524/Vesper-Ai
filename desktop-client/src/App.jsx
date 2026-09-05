@@ -6,7 +6,7 @@ import {
   AlertTriangle, Check, X, ShieldAlert, Cpu, Search, Trash2, Edit3, Plus
 } from 'lucide-react';
 
-const DEFAULT_API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8080/api';
+const DEFAULT_API_BASE = import.meta.env.VITE_API_URL || 'https://vesper-ai-oei3.onrender.com/api';
 
 export default function App() {
   const [apiBaseUrl, setApiBaseUrl] = useState(localStorage.getItem('apiBaseUrl') || DEFAULT_API_BASE);
@@ -656,7 +656,7 @@ export default function App() {
                 <button 
                   type="button" 
                   onClick={() => {
-                    const url = import.meta.env.VITE_API_URL || 'https://vesper-backend.onrender.com/api';
+                    const url = import.meta.env.VITE_API_URL || 'https://vesper-ai-oei3.onrender.com/api';
                     setApiBaseUrl(url);
                     localStorage.setItem('apiBaseUrl', url);
                   }}
@@ -756,7 +756,7 @@ export default function App() {
                   <button 
                     type="button" 
                     onClick={() => {
-                      const url = import.meta.env.VITE_API_URL || 'https://vesper-backend.onrender.com/api';
+                      const url = import.meta.env.VITE_API_URL || 'https://vesper-ai-oei3.onrender.com/api';
                       setApiBaseUrl(url);
                       localStorage.setItem('apiBaseUrl', url);
                     }}

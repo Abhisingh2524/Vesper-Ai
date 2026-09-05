@@ -8,7 +8,7 @@ import * as Speech from 'expo-speech';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 
-const DEFAULT_API_BASE = process.env.EXPO_PUBLIC_API_URL || 'http://10.145.206.112:8080/api';
+const DEFAULT_API_BASE = process.env.EXPO_PUBLIC_API_URL || 'https://vesper-ai-oei3.onrender.com/api';
 
 export default function App() {
   // Theme & State
@@ -670,7 +670,7 @@ export default function App() {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
               <TouchableOpacity 
                 style={{ flex: 1, backgroundColor: '#1a2234', paddingVertical: 6, borderRadius: 6, marginHorizontal: 2, alignItems: 'center' }}
-                onPress={() => setApiBaseUrl(process.env.EXPO_PUBLIC_API_URL || 'https://vesper-backend.onrender.com/api')}
+                onPress={() => setApiBaseUrl(process.env.EXPO_PUBLIC_API_URL || 'https://vesper-ai-oei3.onrender.com/api')}
               >
                 <Text style={{ color: '#00e5ff', fontSize: 10, fontWeight: '600' }}>Cloud URL</Text>
               </TouchableOpacity>
@@ -1001,7 +1001,7 @@ export default function App() {
               <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 12 }}>
                 <TouchableOpacity 
                   style={{ flex: 1, backgroundColor: '#1a2234', paddingVertical: 8, borderRadius: 6, marginHorizontal: 2, alignItems: 'center' }}
-                  onPress={() => setApiBaseUrl(process.env.EXPO_PUBLIC_API_URL || 'https://vesper-backend.onrender.com/api')}
+                  onPress={() => setApiBaseUrl(process.env.EXPO_PUBLIC_API_URL || 'https://vesper-ai-oei3.onrender.com/api')}
                 >
                   <Text style={{ color: '#00e5ff', fontSize: 11, fontWeight: '600' }}>Cloud URL</Text>
                 </TouchableOpacity>
