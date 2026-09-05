@@ -29,6 +29,15 @@ public class AIService {
     private final AtomicLong geminiFailedRequests = new AtomicLong(0);
     private final AtomicLong geminiRateLimitRequests = new AtomicLong(0);
 
+    private final RestTemplate restTemplate;
+
+    public AIService() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(8000); // 8s
+        factory.setReadTimeout(12000);   // 12s
+        this.restTemplate = new RestTemplate(factory);
+    }
+
     // Deduplication cache (5s window to prevent accidental double-clicks / repeated submits)
     private static class CacheEntry {
         final String reply;
@@ -392,11 +401,6 @@ public class AIService {
         }
 
         try {
-            SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-            factory.setConnectTimeout(10000); // 10s
-            factory.setReadTimeout(15000);    // 15s
-            RestTemplate restTemplate = new RestTemplate(factory);
-
             String model = (aiModel != null && !aiModel.trim().isEmpty()) ? aiModel.trim() : "gemini-flash-lite-latest";
             String url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
 
@@ -455,11 +459,6 @@ public class AIService {
         }
         geminiTranscriptionRequests.incrementAndGet();
         try {
-            SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-            factory.setConnectTimeout(15000); // 15s
-            factory.setReadTimeout(30000);    // 30s
-            RestTemplate restTemplate = new RestTemplate(factory);
-
             String model = (aiModel != null && !aiModel.trim().isEmpty()) ? aiModel.trim() : "gemini-flash-lite-latest";
             String url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
 
