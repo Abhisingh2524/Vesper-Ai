@@ -97,17 +97,39 @@ public class ChatController {
     public ResponseEntity<?> processChat(@RequestBody ChatRequest request) {
         try {
             User user = getAuthenticatedUser();
-            Device device = deviceRepository.findByDeviceId(request.deviceId)
-                    .orElseThrow(() -> new IllegalArgumentException("Device not registered"));
+            Device device;
+            if (request.deviceId != null && !request.deviceId.trim().isEmpty()) {
+                device = deviceRepository.findByDeviceId(request.deviceId)
+                        .orElseGet(() -> {
+                            Device d = new Device();
+                            d.setDeviceId(request.deviceId);
+                            d.setDeviceName("My Phone");
+                            d.setPlatform("ANDROID");
+                            d.setUser(user);
+                            d.setLastSeen(LocalDateTime.now());
+                            return deviceRepository.save(d);
+                        });
+            } else {
+                device = deviceRepository.findByUserId(user.getId()).stream().findFirst()
+                        .orElseGet(() -> {
+                            Device d = new Device();
+                            d.setDeviceId("DEFAULT_" + user.getUsername());
+                            d.setDeviceName("Default Device");
+                            d.setPlatform("ANDROID");
+                            d.setUser(user);
+                            d.setLastSeen(LocalDateTime.now());
+                            return deviceRepository.save(d);
+                        });
+            }
 
-            // Create conversation if not exist
-            Conversation conversation;
-            if (request.conversationId == null) {
+            // Create conversation if not exist or invalid
+            Conversation conversation = null;
+            if (request.conversationId != null) {
+                conversation = conversationRepository.findById(request.conversationId).orElse(null);
+            }
+            if (conversation == null || !conversation.getUser().getId().equals(user.getId())) {
                 conversation = new Conversation("Chat - " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), user);
                 conversation = conversationRepository.save(conversation);
-            } else {
-                conversation = conversationRepository.findById(request.conversationId)
-                        .orElseThrow(() -> new IllegalArgumentException("Conversation not found"));
             }
 
             // Save user message
