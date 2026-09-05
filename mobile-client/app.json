@@ -27,6 +27,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9a3cbfdd-b985-40aa-b211-93960673a319"
+      }
+    },
+    "owner": "abhishek0912"
   }
 }
