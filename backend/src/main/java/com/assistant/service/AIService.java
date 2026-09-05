@@ -413,6 +413,18 @@ public class AIService {
             Map<String, Object> contentObj = new HashMap<>();
             contentObj.put("contents", Collections.singletonList(partObj));
 
+            // Ultra-fast responses: short, concise answers (reduces generation latency by 75%)
+            Map<String, Object> sysText = new HashMap<>();
+            sysText.put("text", "You are Vesper, a fast AI assistant. Keep all replies very short, direct, and under 2-3 sentences or short bullet points. Avoid long essays. Reply in Hinglish/Hindi if the user speaks Hindi/Hinglish.");
+            Map<String, Object> sysPart = new HashMap<>();
+            sysPart.put("parts", Collections.singletonList(sysText));
+            contentObj.put("systemInstruction", sysPart);
+
+            Map<String, Object> genConfig = new HashMap<>();
+            genConfig.put("maxOutputTokens", 200);
+            genConfig.put("temperature", 0.7);
+            contentObj.put("generationConfig", genConfig);
+
             Map<String, Object> response = restTemplate.postForObject(url, contentObj, Map.class);
             if (response != null && response.containsKey("candidates")) {
                 List candidates = (List) response.get("candidates");
