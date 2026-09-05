@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: vesper-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: vesper_db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-vesper_root_pass}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vesper-backend
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:mysql://db:3306/vesper_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD:-vesper_root_pass}
+      AI_API_KEY: ${AI_API_KEY:-}
+      AI_MODEL: ${AI_MODEL:-gemini-flash-lite-latest}
+      JWT_SECRET: ${JWT_SECRET:-404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+      PORT: 8080
+      ALLOWED_ORIGINS: "*"
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:

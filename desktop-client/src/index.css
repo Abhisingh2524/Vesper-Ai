@@ -1,0 +1,114 @@
+/* Design Tokens & Core Reset */
+:root {
+  --font-primary: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+
+  /* Premium Dark Mode Colors */
+  --bg-primary: #0b0c10;
+  --bg-secondary: #14161f;
+  --bg-tertiary: #1b1e2a;
+  --accent-blue: #2f80ed;
+  --accent-cyan: #00f2fe;
+  --accent-purple: #7f00ff;
+  --text-main: #f0f3f8;
+  --text-muted: #8c9ba5;
+  --border-color: rgba(255, 255, 255, 0.08);
+
+  /* Glassmorphism settings */
+  --glass-bg: rgba(20, 22, 31, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+  /* State colors */
+  --color-safe: #2ecc71;
+  --color-low: #f1c40f;
+  --color-confirm: #e67e22;
+  --color-high: #e74c3c;
+}
+
+/* Light Mode support if requested */
+.light-mode {
+  --bg-primary: #f5f7fb;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f2f6;
+  --accent-blue: #1d4ed8;
+  --accent-cyan: #06b6d4;
+  --accent-purple: #6d28d9;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --border-color: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Utility Glass Panels */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 16px;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 50%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 242, 254, 0.6);
+  }
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent }
+  50% { border-color: var(--accent-cyan); }
+}
+
+/* Pulse animation for voice states */
+.pulse-listening {
+  animation: pulseGlow 1.5s infinite alternate;
+}

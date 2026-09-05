@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Vesper AI",
+    "slug": "vesper-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.vesper.assistant",
+      "permissions": [
+        "INTERNET",
+        "RECORD_AUDIO",
+        "CAMERA",
+        "CALL_PHONE",
+        "ACCESS_NETWORK_STATE"
+      ],
+      "adaptiveIcon": {
+        "backgroundColor": "#121820",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

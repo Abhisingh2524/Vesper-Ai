@@ -1,0 +1,26 @@
+# Build directories
+target/
+dist/
+release/
+node_modules/
+tools/
+.expo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Database files
+*.db
+*.mv.db
+*.trace.db
+assistantdb*
+
+# Environment secrets
+.env
+.env.local
+.env.production
+.env.development
+
+# OS metadata
+.DS_Store
+Thumbs.db

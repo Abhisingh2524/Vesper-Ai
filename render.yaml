@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: vesper-backend
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_MODEL
+        value: gemini-flash-lite-latest
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ALLOWED_ORIGINS
+        value: "*"
